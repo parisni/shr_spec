@@ -1,0 +1,29 @@
+Grammar:	Map 4.1
+Namespace:	shr.encounter
+Target:		FHIR_STU_3
+
+
+MimicAdmission maps to Encounter:
+	MimicPatient maps to subject
+	OccurrenceTime  maps to period
+	AdmissionType maps to class
+	Participant maps to participant
+	Participant.Practitioner maps to participant.individual
+	Participant.RelatedPerson maps to participant.individual
+	Participant.OccurrenceTime maps to participant.period
+	Participant.ParticipationType maps to participant.type
+	ProviderOrganization maps to serviceProvider
+	TBD "HealthConcern" maps to indication
+
+MimicStay maps to Encounter:
+	MimicPatient maps to subject
+	MimicAdmission maps to partOf
+	OccurrenceTime  maps to period
+	EncounterType maps to class
+	Participant maps to participant
+	Participant.Practitioner maps to participant.individual
+	Participant.RelatedPerson maps to participant.individual
+	Participant.OccurrenceTime maps to participant.period
+	Participant.ParticipationType maps to participant.type
+	ProviderOrganization maps to serviceProvider
+	TBD "HealthConcern" maps to indication

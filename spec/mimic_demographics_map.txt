@@ -1,0 +1,29 @@
+Grammar:	Map 4.1
+Namespace:	shr.demographics
+Target:		FHIR_STU_3
+
+
+MimicPatient maps to Patient:
+	DateOfBirth maps to birthDate
+	MultipleBirth maps to multipleBirth[x].boolean
+	MultipleBirth.MultipleBirthOrder maps to multipleBirth[x].integer
+	BirthSex maps to http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex
+	PlaceOfBirth maps to http://hl7.org/fhir/StructureDefinition/birthPlace
+	AdministrativeGender maps to gender
+	Race maps to http://hl7.org/fhir/us/core/StructureDefinition/us-core-race
+	Ethnicity maps to http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity
+	MaritalStatus maps to maritalStatus
+	AddressUsed maps to address
+	Deceased.boolean maps to deceased[x].boolean
+
+Telecom maps to ContactPoint:
+	TelecomNumberOrAddress maps to value
+	TelecomType maps to system
+	TelecomQualifier maps to use
+	EffectiveTimePeriod maps to period
+
+
+HealthInsurance maps to Coverage:
+	Value maps to type
+	InsuranceMemberId maps to subscriberId
+	EffectiveTimePeriod maps to period

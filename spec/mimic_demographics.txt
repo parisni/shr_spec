@@ -1,0 +1,89 @@
+Grammar:	DataElement 4.1
+Namespace:		shr.demographics
+Description:		"The SHR Demographics domain contains definitions that describe basic characteristics of the person of record, such as name, address, and date of birth. Elements in the demographics domains are used for unique identification and patient matching."
+Uses:				shr.core, shr.actor, shr.base, shr.observation
+
+Path:			  FHIR = http://hl7.org/fhir/ValueSet
+
+//-------------- The ultimate stakeholder of the SHR ------------------
+
+EntryElement:	MimicPatient
+Based on:		Person
+Concept:		MTH#C1299487, LNC#54125-0
+Description:	"Extended demographic information about the subject"
+1..1			Anonymized
+1..1			FictionalPerson
+0..1			DateOfBirth
+0..1			PlaceOfBirth
+0..1			MultipleBirth
+0..1			BirthSex
+0..1			AdministrativeGender
+0..1		 	Race
+0..1		 	Ethnicity
+0..1		 	MaritalStatus
+0..*			AddressUsed
+1..1			Deceased
+
+	Element:   		PlaceOfBirth
+	Concept:        MTH#C0032040
+	Description:    "The location of a birth event. There may be multiple entries, but a person has only one place of birth."
+	Value:          GeopoliticalLocation
+
+	Element:		MultipleBirth
+	Concept:		MTH#C0026753
+	Description:	"Indication if the person was part of a multiple birth event."
+	Value:			boolean
+	0..1			MultipleBirthOrder
+
+		Element:		MultipleBirthOrder
+		Concept:		LNC#73771-8
+		Description:	"Order of birth of the person in multiple birth event (if part of multiple birth)."
+		Value:			integer // should be positiveInt, but it is an integer in FHIR (no issue yet logged)
+
+	Element:		BirthSex
+	Concept:		MTH#C4086849
+	Description:	"Administrative sex assigned at birth and recorded on birth certificate."
+	Value:			CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/us-core-birthsex
+
+	Element:		Race
+	Concept:		MTH#C0034510
+	Description:	"Subjective association of a person with a named category of humans sharing common history, traits, place of family origin, nationality, tribe, or other inherited background."
+	Value:			CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/omb-ethnicity
+	0..*			RaceDetail
+
+		Element:		RaceDetail
+		Concept:		TBD
+		Description:	"Additional description of race or heritage."
+		Value:			CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/detailed-race or CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/omb-ethnicity
+
+	Element:		Ethnicity
+	Concept:		MTH#C0015031
+	Description:    "Indicator of Hispanic or Latino origin."
+	Value:          CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/omb-ethnicity
+	0..*			EthnicityDetail
+
+		Element:		EthnicityDetail
+		Concept:		TBD
+		Description:	"Additional description of ethnicity."
+		Value:			CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/omb-ethnicity or CodeableConcept from http://hl7.org/fhir/us/core/ValueSet/detailed-ethnicity
+
+
+	Element:   		MaritalStatus
+	Concept:		MTH#C0024819
+	Description:	"The most recent marital status of a person."
+	Value:			CodeableConcept from FHIR/marital-status
+
+	Element:   		AddressUsed
+	Concept:		MTH#C0682130
+	Description:	"An address used by for dwelling, work, or other purposes. May be a physical location or an address used only for deliveries, such as a PO box."
+	Value:			Address
+	1..*    		AddressUse
+	0..*			Setting
+	0..1			EffectiveTimePeriod
+
+		Element:		AddressUse
+		Concept:		TBD
+		Description:	"Describes how the address is used, in particular, as a dwelling (primary, secondary, temporary), a former address, mailing address, etc."
+		Value:			CodeableConcept from AddressUseVS
+
+
